@@ -7,6 +7,22 @@
 	<packaging>war</packaging>
 	<name>Hello World Web Application Repository</name>
 	<description>Simplest possible Java Webapp</description>
+	
+	<distributionManagement>
+	
+	    <repository>
+	      <id>nexus</id>
+	      <name>LTI-demo-release</name>
+	      <url>http://43.204.22.243:8081/repository/test-release/</url>
+	    </repository>
+	    
+	    <snapshotRepository>
+	      <id>nexus</id>
+	      <name>LTI-demo-snapshot</name>
+	      <url>http://3.108.41.178:8081/repository/walmart-snapshot/</url>
+	    </snapshotRepository>
+	    
+	</distributionManagement>
 
 	<build>
 		<plugins>
