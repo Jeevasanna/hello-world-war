@@ -4,6 +4,13 @@ pipeline {
     tools {
       maven 'MAVEN'
     }
+    environment {
+      AWS_ACCOUNT_ID= "681424868466"
+      AWS_DEFAULT_REGION="ap-south-1"
+      IMAGE_REPO_NAME= "vijay-ecr"
+      IMAGE_TAG= "latest"
+      REPOSITORY_URI= "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+    }
     stages {
       stage('Git checkout') {    //Getting the source code from my github repo 'main' branch
            steps {
@@ -80,6 +87,19 @@ pipeline {
            stage('build docker image') {
                steps {
                    sh 'docker build -t jeevavijayanand/java-app .'
+               }
+           }
+//            stage('Loggingto AWS ECR') {
+//                steps {
+//                   sh "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 681424868466.dkr.ecr.ap-south-1.amazonaws.com"
+//                }
+//            }
+           stage('Pushingto ECR') {
+               steps{
+                  sh "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 681424868466.dkr.ecr.ap-south-1.amazonaws.com" 
+                  sh "docker build -t vijay-ecr ."
+                  sh "docker tag vijay-ecr:latest 681424868466.dkr.ecr.ap-south-1.amazonaws.com/vijay-ecr:latest"
+                  sh "docker push 681424868466.dkr.ecr.ap-south-1.amazonaws.com/vijay-ecr:latest"                   
                }
            }
 //            stage('DockerHUB LOGIN & push image') {
