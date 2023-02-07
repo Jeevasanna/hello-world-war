@@ -79,7 +79,7 @@ pipeline {
         
            stage('build docker image') {
                steps {
-                   sh 'docker build -t jeevavijayanand/java-app:latest .'
+                   sh 'docker build -t jeevavijayanand/java-app .'
                }
            }
 //            stage('DockerHUB LOGIN & push image') {
