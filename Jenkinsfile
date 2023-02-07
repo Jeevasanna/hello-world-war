@@ -79,10 +79,16 @@ pipeline {
         
            stage('build docker image') {
                steps {
-                   script{
-                      dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
-                   }
+                   sh 'docker build -t jeevavijayanand/javaapp:latest
                }
            }
-    }
+           stage('DockerHUB LOGIN & push image') {
+                steps {
+                      withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'dockerhubcredentials')]) {
+                      sh "docker login -u account1996 -p ${dockerhubcredentials}"  
+                   }
+                      sh 'docker push account1996/java:1'
+               }
+           }
+      }
 }  
