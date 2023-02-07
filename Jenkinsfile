@@ -82,13 +82,13 @@ pipeline {
                    sh 'docker build -t jeevavijayanand/javaapp:latest
                }
            }
-           stage('DockerHUB LOGIN & push image') {
-                steps {
-                      withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'dockerhubcredentials')]) {
-                      sh "docker login -u account1996 -p ${dockerhubcredentials}"  
-                   }
-                      sh 'docker push account1996/java:1'
-               }
-           }
+//            stage('DockerHUB LOGIN & push image') {
+//                 steps {
+//                       withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'dockerhubcredentials')]) {
+//                       sh "docker login -u account1996 -p ${dockerhubcredentials}"  
+//                    }
+//                       sh 'docker push account1996/java:1'
+//                }
+//            }
       }
 }  
