@@ -66,15 +66,23 @@ pipeline {
 //                 version: '1.0.0'
 //             }    
 //         }
-           stage('push nexus artifact'){
+//            stage('push nexus artifact'){
+//                steps {
+//                    sh 'mvn clean deploy'
+//                }
+//            }
+//         stage('ansible deployement') {
+//             steps {
+//               ansiblePlaybook credentialsId: 'ansible-deployment', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts.inv', playbook: 'tomcat-installation.yaml'
+//             }      
+//         }
+        
+           stage('build docker image') {
                steps {
-                   sh 'mvn clean deploy'
+                   script{
+                      dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+                   }
                }
            }
-        stage('ansible deployement') {
-            steps {
-              ansiblePlaybook credentialsId: 'ansible-deployment', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts.inv', playbook: 'tomcat-installation.yaml'
-            }      
-        }
     }
 }  
