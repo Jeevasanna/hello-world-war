@@ -102,15 +102,16 @@ pipeline {
                   sh "docker push 681424868466.dkr.ecr.ap-south-1.amazonaws.com/vijay-ecr:latest"                   
                }
            }
+        
            stage('K8S Deploy'){
-               steps{
+               steps {
                   kubernetesDeploy(
                      config: 'hello-world-war/deployment.yml',
                      kubeconfigId:'K8S',
                      enableConfigSubstitution: true
-                )
+                  )
                   sh 'kubectl apply -f deployment.yml'
-            }
-        }
+               }
+           }
       }
 }  
