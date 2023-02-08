@@ -95,7 +95,7 @@ pipeline {
 //                }
 //            }
            stage('Pushingto ECR') {
-               steps{
+               steps {
                   sh "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 681424868466.dkr.ecr.ap-south-1.amazonaws.com" 
                   sh "docker build -t vijay-ecr ."
                   sh "docker tag vijay-ecr:latest 681424868466.dkr.ecr.ap-south-1.amazonaws.com/vijay-ecr:latest"
@@ -103,8 +103,8 @@ pipeline {
                }
            }
         
-           stage('K8S Deploy'){
-                steps{
+           stage('K8S Deploy') {
+                steps {
                   kubernetesDeploy(
                      config: 'hello-world-war/deployment.yml',
                      kubeconfigId:'K8S',
