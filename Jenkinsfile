@@ -113,14 +113,12 @@ pipeline {
 //                   sh 'kubectl apply -f deployment.yml'
 //                }
 //            }
+        
               stage('K8S Deploy') {
                    steps{
-                       
-                          withKubeConfig([credentialsId: 'K8S', serverUrl: '']) {
-                          sh ('kubectl apply -f deployment.yml')
-                       
-                   } 
+                       withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                           sh ('kubectl apply -f deployment.yml')
+                       } 
               } 
-           } 
       }
 } 
