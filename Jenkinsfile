@@ -17,13 +17,13 @@ pipeline {
                git branch: 'master', url: 'https://github.com/Jeevasanna/hello-world-war.git'
            }
        }
-//        stage('OWASP-Dependency-Check') { 
-//             steps {
-//                  dependencyCheck additionalArguments: '--scan /var/lib/jenkins/workspace/${JOB_NAME} --format ALL --disableYarnAudit', 
-//                  odcInstallation: 'owasp-dependency-check'
-//                  dependencyCheckPublisher pattern: '**/dependency-check-report.xml', unstableNewCritical: 1, unstableNewHigh: 2, unstableTotalCritical: 1, unstableTotalHigh: 2
-//            }
-//        } 
+       stage('OWASP-Dependency-Check') { 
+            steps {
+                 dependencyCheck additionalArguments: '--scan /var/lib/jenkins/workspace/${JOB_NAME} --format ALL --disableYarnAudit', 
+                 odcInstallation: 'owasp-dependency-check'
+                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml', unstableNewCritical: 1, unstableNewHigh: 2, unstableTotalCritical: 1, unstableTotalHigh: 2
+           }
+       } 
        stage('Build artifact') {     //This will compile and generate a war file as a package for my java application
             steps {
                  sh 'mvn clean package'
@@ -53,26 +53,6 @@ pipeline {
 // //                 }
 // //            }
 // //        }
-//        stage('Upload war to Nexus'){     //This will push the already generated war file to a prescribed folder in Nexus repository manager 
-//             steps{
-//                 nexusArtifactUploader artifacts: [    //using this plugin, am uploading my artifact to nexus , got this info from snippet generator
-//                     [
-//                         artifactId: 'java-web-app',   //got from pom.xml
-//                         classifier: '', 
-//                         file: 'target/java-web-app-1.0.0.war',   //jenkins workspace war file generated location
-//                         type: 'war'
-                    
-//                     ]
-//                 ], 
-//                 credentialsId: 'nexus3',     //nexus id , where my username & pwd defined
-//                 groupId: 'com.mt',                 // got from pom.xml
-//                 nexusUrl: '43.204.22.243/:8081',     //my nexusurl with public-ip, bcoz my nexus and jenkins are not in same network
-//                 nexusVersion: 'nexus3', 
-//                 protocol: 'http', 
-//                 repository: 'pipeline-demo-java-application-release',    //my repo name in nexus
-//                 version: '1.0.0'
-//             }    
-//         }
 //            stage('push nexus artifact'){
 //                steps {
 //                    sh 'mvn clean deploy'
@@ -84,16 +64,6 @@ pipeline {
 //             }      
 //         }
         
-//            stage('build docker image') {
-//                steps {
-//                    sh 'docker build -t jeevavijayanand/java-app .'
-//                }
-//            }
-//            stage('Loggingto AWS ECR') {
-//                steps {
-//                   sh "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 681424868466.dkr.ecr.ap-south-1.amazonaws.com"
-//                }
-//            }
            stage('Pushingto ECR') {
                steps {
                   sh "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 681424868466.dkr.ecr.ap-south-1.amazonaws.com" 
@@ -103,23 +73,23 @@ pipeline {
                }
            }
         
-//            stage('K8S Deploy') {
-//                 steps {
-//                   kubernetesDeploy(
-//                      config: 'hello-world-war/deployment.yml',
-//                      kubeconfigId:'K8S',
-//                      enableConfigSubstitution: true
-//                   )
-//                   sh 'kubectl apply -f deployment.yml'
-//                }
-//            }
+           stage('K8S Deploy') {
+                steps {
+                  kubernetesDeploy(
+                     config: 'hello-world-war/deployment.yml',
+                     kubeconfigId:'K8S',
+                     enableConfigSubstitution: true
+                  )
+                  sh 'kubectl apply -f deployment.yml'
+               }
+           }
         
-              stage('K8S Deploy') {
-                   steps{
-                       withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-                           sh ('kubectl apply -f deployment.yml --kubeconfig')
-                       }
-                   }
-              } 
+//               stage('K8S Deploy') {
+//                    steps{
+//                        withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+//                            sh ('kubectl apply -f deployment.yml --kubeconfig')
+//                        }
+//                    }
+//               } 
       }
  } 
