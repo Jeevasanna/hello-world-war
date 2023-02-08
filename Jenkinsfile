@@ -73,23 +73,23 @@ pipeline {
                }
            }
         
-//            stage('K8S Deploy') {
-//                steps {
-//                  kubernetesDeploy(
-//                      config: 'hello-world-war/deployment.yml',
-//                      kubeconfigId:'K8S',
-//                      enableConfigSubstitution: true
-//                   )
-//                   sh 'kubectl apply -f deployment.yml'
-//                }
-//            }
+           stage('K8S Deploy') {
+               steps {
+                 kubernetesDeploy(
+                     config: 'hello-world-war/deployment.yml',
+                     kubeconfigId:'K8S',
+                     enableConfigSubstitution: true
+                  )
+                  sh 'kubectl apply -f deployment.yml'
+               }
+           }
         
-              stage('K8S Deploy') {
-                   steps{
-                       withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-                           sh ('kubectl apply -f deployment.yml --kubeconfig')
-                       }
-                   }
-              } 
+//               stage('K8S Deploy') {
+//                    steps{
+//                        withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+//                            sh ('kubectl apply -f deployment.yml --kubeconfig')
+//                        }
+//                    }
+//               } 
       }
  } 
