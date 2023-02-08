@@ -104,7 +104,7 @@ pipeline {
            }
         
            stage('K8S Deploy'){
-               steps {
+                steps{
                   kubernetesDeploy(
                      config: 'hello-world-war/deployment.yml',
                      kubeconfigId:'K8S',
