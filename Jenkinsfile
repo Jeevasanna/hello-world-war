@@ -36,7 +36,7 @@ pipeline {
                     -Dsonar.projectName=pipeline-demo-java-application-1 \
                     -Dsonar.projectKey=java-project \
                     -Dsonar.login=squ_6cee02bd03f5655e79fde1ecbcc76b18e95e2262 \
-                    -Dsonar.host.url=http://43.204.38.67:9000' 
+                    -Dsonar.host.url=http://13.126.190.41:9000' 
                         
                 }
            }
