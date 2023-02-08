@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: javawebapp-ENVIRONMENT-BUILD_NUMBER
+  name: deploypod
 spec:
   replicas: 1
   template:
@@ -11,8 +11,8 @@ spec:
         version: "BUILD_NUMBER"
     spec:
       containers:
-      - name: javawebapp-ENVIRONMENT-BUILD_NUMBER
-        image: IMAGE
+      - name: demoappdeploy
+        image: 681424868466.dkr.ecr.ap-south-1.amazonaws.com/vijay-ecr:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
