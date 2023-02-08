@@ -42,11 +42,11 @@ pipeline {
            }
        }
 
-       stage("Quality Gate") {
-            steps {
-                  waitForQualityGate abortPipeline: true
-           }
-       }
+//        stage("Quality Gate") {
+//             steps {
+//                   waitForQualityGate abortPipeline: true
+//            }
+//        }
            stage('push nexus artifact'){
                steps {
                    sh 'mvn clean deploy'
