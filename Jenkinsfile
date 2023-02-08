@@ -84,11 +84,11 @@ pipeline {
 //             }      
 //         }
         
-           stage('build docker image') {
-               steps {
-                   sh 'docker build -t jeevavijayanand/java-app .'
-               }
-           }
+//            stage('build docker image') {
+//                steps {
+//                    sh 'docker build -t jeevavijayanand/java-app .'
+//                }
+//            }
 //            stage('Loggingto AWS ECR') {
 //                steps {
 //                   sh "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 681424868466.dkr.ecr.ap-south-1.amazonaws.com"
@@ -102,13 +102,5 @@ pipeline {
                   sh "docker push 681424868466.dkr.ecr.ap-south-1.amazonaws.com/vijay-ecr:latest"                   
                }
            }
-//            stage('DockerHUB LOGIN & push image') {
-//                 steps {
-//                       withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'dockerhubcredentials')]) {
-//                       sh "docker login -u account1996 -p ${dockerhubcredentials}"  
-//                    }
-//                       sh 'docker push account1996/java:1'
-//                }
-//            }
       }
 }  
