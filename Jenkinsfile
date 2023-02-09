@@ -71,7 +71,7 @@ pipeline {
         
               stage('K8S Deploy') {
                    steps{
-                          sh 'aws eks update-kubeconfig --name vijay --region ap-south-1'
+                          sh 'aws eks update-kubeconfig --name vijayanand --region ap-south-1'
                           sh 'kubectl apply -f deployment.yml'
                        
                    }
