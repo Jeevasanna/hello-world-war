@@ -52,11 +52,11 @@ pipeline {
 //                    sh 'mvn clean deploy'
 //                }
 //            }
-        stage('ansible deployement') {
-            steps {
-              ansiblePlaybook credentialsId: 'ansible-deployment', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts.inv', playbook: 'tomcat-installation.yaml'
-            }      
-        }
+//         stage('ansible deployement') {
+//             steps {
+//               ansiblePlaybook credentialsId: 'ansible-deployment', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts.inv', playbook: 'tomcat-installation.yaml'
+//             }      
+//         }
         
            stage('Pushingto ECR') {
                steps {
