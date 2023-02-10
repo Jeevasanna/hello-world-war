@@ -19,9 +19,8 @@ pipeline {
        }
        stage('OWASP-Dependency-Check') { 
             steps {
-                 dependencyCheck additionalArguments: '--scan /var/lib/jenkins/workspace/${JOB_NAME} --format ALL --disableYarnAudit', 
-                 odcInstallation: 'owasp-dependency-check'
-                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml', unstableNewCritical: 1, unstableNewHigh: 2, unstableTotalCritical: 1, unstableTotalHigh: 2
+                 dependencyCheck additionalArguments: '--scan /var/lib/jenkins/workspace/${JOB_NAME} --format ALL --disableYarnAudit', odcInstallation: 'owasp-dependency-check'
+//                  dependencyCheckPublisher pattern: '**/dependency-check-report.xml', unstableNewCritical: 1, unstableNewHigh: 2, unstableTotalCritical: 1, unstableTotalHigh: 2
            }
        } 
        stage('Build artifact') {     //This will compile and generate a war file as a package for my java application
