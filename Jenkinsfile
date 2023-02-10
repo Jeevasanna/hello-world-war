@@ -71,8 +71,11 @@ pipeline {
         
               stage('K8S Deploy') {
                    steps{
-                          sh 'aws eks update-kubeconfig --name vijayanand --region ap-south-1'
+                          withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
                           sh 'kubectl apply -f deployment.yml'
+                     }
+//                           sh 'aws eks update-kubeconfig --name vijayanand --region ap-south-1'
+//                           sh 'kubectl apply -f deployment.yml'
                        
                    }
               } 
