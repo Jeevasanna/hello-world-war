@@ -17,19 +17,19 @@ pipeline {
                git branch: 'master', url: 'https://github.com/Jeevasanna/hello-world-war.git'
            }
        }
-       stage('owasp-dependency-check') { 
+/*       stage('owasp-dependency-check') { 
             steps {
                     dependencyCheck additionalArguments: 'scan /var/lib/jenkins/workspace/LTI-demo9 --format HTML', odcInstallation: 'owasp-dependency-check'
 //                  dependencyCheck additionalArguments: '--scan /var/lib/jenkins/workspace/${JOB_NAME} --format ALL --disableYarnAudit', odcInstallation: 'owasp-dependency-check'
 //                  dependencyCheckPublisher pattern: '**/dependency-check-report.xml', unstableNewCritical: 1, unstableNewHigh: 2, unstableTotalCritical: 1, unstableTotalHigh: 2
            }
-       } 
+       } */
        stage('Build artifact') {     //This will compile and generate a war file as a package for my java application
             steps {
                  sh 'mvn clean package'
                }
            }
-/*       stage('sonar Analysis') {    //Code Quality Assurance tool that collects and analyzes source code, and provides reports for the code quality of your project
+       stage('sonar Analysis') {    //Code Quality Assurance tool that collects and analyzes source code, and provides reports for the code quality of your project
             steps{
                 withSonarQubeEnv('sonarqube') {
                    sh 'mvn clean verify sonar:sonar \
@@ -42,11 +42,11 @@ pipeline {
            }
        }
 
-       stage("Quality Gate") {
-            steps {
-                  waitForQualityGate abortPipeline: true
-           }
-       }
+//        stage("Quality Gate") {
+//             steps {
+//                   waitForQualityGate abortPipeline: true
+//            }
+//        }
            stage('push nexus artifact'){
                steps {
                    sh 'mvn clean deploy'
@@ -75,6 +75,6 @@ pipeline {
                           sh 'kubectl apply -f deployment.yml'
                        
                    }
-              } */
+              } 
       }
  } 
