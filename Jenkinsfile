@@ -17,7 +17,7 @@ pipeline {
                git branch: 'master', url: 'https://github.com/Jeevasanna/hello-world-war.git'
            }
        }
-       stage('OWASP-Dependency-Check') { 
+       stage('owasp-dependency-check') { 
             steps {
                  dependencyCheck additionalArguments: '--scan /var/lib/jenkins/workspace/${JOB_NAME} --format ALL --disableYarnAudit', odcInstallation: 'owasp-dependency-check'
 //                  dependencyCheckPublisher pattern: '**/dependency-check-report.xml', unstableNewCritical: 1, unstableNewHigh: 2, unstableTotalCritical: 1, unstableTotalHigh: 2
