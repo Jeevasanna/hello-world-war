@@ -19,7 +19,8 @@ pipeline {
        }
        stage('owasp-dependency-check') { 
             steps {
-                 dependencyCheck additionalArguments: '--scan /var/lib/jenkins/workspace/${JOB_NAME} --format ALL --disableYarnAudit', odcInstallation: 'owasp-dependency-check'
+                    dependencyCheck additionalArguments: 'scan /var/lib/jenkins/workspace/${JOB_NAME} --format HTML', odcInstallation: 'owasp-dependency-check'
+//                  dependencyCheck additionalArguments: '--scan /var/lib/jenkins/workspace/${JOB_NAME} --format ALL --disableYarnAudit', odcInstallation: 'owasp-dependency-check'
 //                  dependencyCheckPublisher pattern: '**/dependency-check-report.xml', unstableNewCritical: 1, unstableNewHigh: 2, unstableTotalCritical: 1, unstableTotalHigh: 2
            }
        } 
